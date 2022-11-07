@@ -15,7 +15,7 @@ import com.example.projectzero.db.repository.AuthRepository;
 public class SignUpViewModel extends AndroidViewModel {
 
     private AuthRepository authRepository;
-    private MutableLiveData<Boolean> isAlreadyExist = new MediatorLiveData<>();
+    private MutableLiveData<Boolean> isAlreadyExist = new MutableLiveData<>();
 
     public SignUpViewModel(@NonNull Application application) {
         super(application);
@@ -27,10 +27,12 @@ public class SignUpViewModel extends AndroidViewModel {
     }
 
 
-    public LiveData<Boolean> isExist(Editable text, String email) throws Exception {
+    public LiveData<Boolean> isExist(String email) throws Exception {
 
         isAlreadyExist.setValue(authRepository.CheckUser(email));
 
         return isAlreadyExist;
     }
+
 }
+

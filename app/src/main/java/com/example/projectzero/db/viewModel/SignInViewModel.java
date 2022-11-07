@@ -1,7 +1,6 @@
 package com.example.projectzero.db.viewModel;
 
 import android.app.Application;
-import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -15,14 +14,14 @@ import com.example.projectzero.utils.SharedPreference;
 public class SignInViewModel extends AndroidViewModel {
 
     private final AuthRepository authRepository;
-    private final SharedPreference sharedPreferences;
-    private final MutableLiveData<Boolean> checkSignIn = new MutableLiveData<>();
-    private final MutableLiveData<Boolean> isLoggedIn = new MutableLiveData<>();
+    private SharedPreference sharedPreference;
+    private MutableLiveData<Boolean> checkSignIn = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isLoggedIn = new MutableLiveData<>();
 
     public SignInViewModel(@NonNull Application application) {
         super(application);
         authRepository = new AuthRepository(application);
-        sharedPreferences = new SharedPreference(getApplication().getApplicationContext());
+        sharedPreference = new SharedPreference(getApplication().getApplicationContext());
     }
 
     public void signInUser(String email, String pass) {
@@ -31,7 +30,7 @@ public class SignInViewModel extends AndroidViewModel {
             User user = authRepository.loginUser(email, pass);
 
             if (user != null) {
-                sharedPreferences.saveLoggedInUser(user);
+                sharedPreference.saveLoggedInUser(user);
                 checkSignIn.setValue(true);
             } else
                 checkSignIn.setValue(false);
@@ -42,6 +41,7 @@ public class SignInViewModel extends AndroidViewModel {
         }
     }
 
+
     public LiveData<Boolean> checkSignIn() {
         return checkSignIn;
     }
@@ -49,7 +49,7 @@ public class SignInViewModel extends AndroidViewModel {
 
     public LiveData<Boolean> isLoggedIn() {
 
-        User user = sharedPreferences.retrieveLoggedInUser();
+        User user = sharedPreference.retrieveLoggedInUser();
 
         if (user != null)
             isLoggedIn.setValue(true);

@@ -58,9 +58,10 @@ public class RegisterFragment extends Fragment {
     }
 
     private void registerUser() throws Exception {
-        signUpViewModel.isExist(binding.editEmail.getText(),toString().trim()).observe(this,aBoolean -> {
+        String email = binding.editEmail.getText().toString();
+        signUpViewModel.isExist(email).observe(this,aBoolean -> {
             if (aBoolean){
-                Utilites.initializeToast(getContext(), "Email ja esta cadastrado").show();
+                Utilites.initializeToast(getContext(), getString(R.string.registered)).show();
             }else {
                 if (    !binding.editEmail.getText().toString().trim().isEmpty() &&
                         !binding.editName.getText().toString().trim().isEmpty() &&
