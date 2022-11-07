@@ -11,14 +11,14 @@ import java.util.List;
 @Dao
 public interface UserDao {
 
-    @Query("SELECT * FROM user")
-    List<User> all();
-
     @Insert
-    long insertUser(User user);
+    void insert(User user);
 
-    @Query("SELECT * FROM user WHERE email = (:email) and password = (:password)")
-    User loginInfo(String email, String password);
+    @Query("select * from User where email = :email AND password = :password ")
+    User findUser(String email, String password);
+
+    @Query("select * from User where email = :email ")
+    User findUserByEmail(String email);
 }
 // A anotação @Dao indica que esta interface deve ser usada como um objeto de acesso a dados
 // A @query marca os métodos contidos nas classes anotadas do DAO como métodos de consulta
