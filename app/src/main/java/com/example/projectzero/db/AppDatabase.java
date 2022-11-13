@@ -6,19 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.projectzero.R;
-import com.example.projectzero.db.dao.UserDao;
-import com.example.projectzero.db.model.User;
 
-import org.intellij.lang.annotations.Language;
-
-@Database(entities = {User.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
-    public abstract UserDao userDao();
+
 
 
     private static final String DATABASE_NAME = "project_zero";
