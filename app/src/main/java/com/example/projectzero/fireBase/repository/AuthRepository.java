@@ -38,7 +38,7 @@ public class AuthRepository {
             if (task.isSuccessful()) {
                 firebaseUserMutableLiveData.postValue(auth.getCurrentUser());
             } else {
-                Utilites.initializeToast(application, task.getException().getMessage()).show();
+                Utilites.showShort(application, task.getException().getMessage());
             }
         });
     }
@@ -48,7 +48,7 @@ public class AuthRepository {
             if (task.isSuccessful()) {
                 firebaseUserMutableLiveData.postValue(auth.getCurrentUser());
             } else {
-                Utilites.initializeToast(application, task.getException().getMessage()).show();
+                Utilites.showShort(application, task.getException().getMessage());
             }
         });
     }
