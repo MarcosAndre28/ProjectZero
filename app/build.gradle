@@ -65,5 +65,9 @@ dependencies {
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata:2.5.1"
 
+    // BCrypt
+    implementation 'org.mindrot:jbcrypt:0.4'
+
+
 
 }

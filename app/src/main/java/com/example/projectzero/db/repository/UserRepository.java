@@ -3,12 +3,12 @@ package com.example.projectzero.db.repository;
 import android.app.Application;
 import android.util.Log;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.example.projectzero.db.AppDatabase;
 import com.example.projectzero.db.dao.UserDao;
 import com.example.projectzero.db.model.User;
-import com.example.projectzero.utils.Utilites;
+import com.example.projectzero.utils.Utils;
+
+import org.mindrot.jbcrypt.BCrypt;
 
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
@@ -33,14 +33,16 @@ public class UserRepository{
                 .defaultIfEmpty(false);
     }
 
-    private String encryptPassword(String password) throws Exception {
-        return Utilites.hashPassword(password);
-    }
-
-    public Maybe<Boolean> loginExists(String email, String password) throws Exception {
-        String encryptedPassword = encryptPassword(password);
-        return userDao.getUserByEmailAndPassword(email,encryptedPassword)
-                .map(user -> true)
+    public Maybe<Boolean> login(String email, String password) {
+        return userDao.getUserByEmail(email)
+                .flatMap(user -> {
+                    if (BCrypt.checkpw(password, user.getPassword())) {
+                        return Maybe.just(true);
+                    } else {
+                        return Maybe.just(false);
+                    }
+                })
                 .defaultIfEmpty(false);
     }
+
 }

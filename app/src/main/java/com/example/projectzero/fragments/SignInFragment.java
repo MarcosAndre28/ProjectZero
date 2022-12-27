@@ -12,11 +12,9 @@ import androidx.navigation.Navigation;
 
 import com.example.projectzero.R;
 import com.example.projectzero.databinding.FragmentLoginBinding;
-import com.example.projectzero.db.model.User;
 import com.example.projectzero.db.viewModel.AuthViewModel;
-import com.example.projectzero.utils.Utilites;
+import com.example.projectzero.utils.Utils;
 
-import io.reactivex.CompletableObserver;
 import io.reactivex.MaybeObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -52,7 +50,7 @@ public class SignInFragment extends Fragment {
             String password = binding.inputPassword.getText().toString();
 
             if (email.isEmpty() && password.isEmpty()){
-                Utilites.showShort(getContext(), getString(R.string.invalid_info));
+                Utils.showShort(getContext(), getString(R.string.invalid_info));
 
             }
             else {
@@ -69,12 +67,11 @@ public class SignInFragment extends Fragment {
                                 public void onSuccess(Boolean exists) {
                                     Log.d("TAG", "Valor de exists: " + exists);
                                     if (exists) {
-                                        Utilites.showShort(getContext(),getString(R.string.login));
+                                        Utils.showShort(getContext(),getString(R.string.login));
                                         Navigation.findNavController(view1).navigate(R.id.action_loginFragment_to_homeFragment);
 
                                     } else {
-                                        // Usuário não existe no banco de dados
-                                        Utilites.showShort(getContext(), "Usuario não esta cadastrado");
+                                        Utils.showShort(getContext(), "Usuario não esta cadastrado");
                                         try {
 
                                         } catch (Exception e) {

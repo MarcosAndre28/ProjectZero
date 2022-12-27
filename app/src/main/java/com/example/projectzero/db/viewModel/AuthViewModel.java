@@ -14,7 +14,7 @@ import io.reactivex.Maybe;
 
 public class AuthViewModel extends AndroidViewModel {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public AuthViewModel(@NonNull Application application) {
         super(application);
@@ -30,9 +30,6 @@ public class AuthViewModel extends AndroidViewModel {
     }
 
     public Maybe<Boolean> login(String email,String password) throws Exception {
-        return userRepository.loginExists(email,password);
+        return userRepository.login(email,password);
     }
-
-
-
 }

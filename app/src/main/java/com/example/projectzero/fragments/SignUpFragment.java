@@ -17,10 +17,9 @@ import com.example.projectzero.R;
 import com.example.projectzero.databinding.FragmentRegisterBinding;
 import com.example.projectzero.db.model.User;
 import com.example.projectzero.db.viewModel.AuthViewModel;
-import com.example.projectzero.utils.Utilites;
+import com.example.projectzero.utils.Utils;
 
 import io.reactivex.CompletableObserver;
-import io.reactivex.Maybe;
 import io.reactivex.MaybeObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -66,13 +65,10 @@ public class SignUpFragment extends Fragment {
                             public void onSuccess(Boolean exists) {
                                 Log.d("TAG", "Valor de exists: " + exists);
                                 if (exists) {
-                                    // Usuário já existe no banco de dados
-                                    Utilites.showShort(getContext(), "Usuario ja cadastrado");
+                                    Utils.showShort(getContext(), "Usuario ja cadastrado");
                                 } else {
-                                    // Usuário não existe no banco de dados
-
                                     try {
-                                        String passwordSh = Utilites.hashPassword(password);
+                                        String passwordSh = Utils.hashPassword(password);
                                         User user = new User(name, email, passwordSh);
                                         authViewModel.registerUser(user)
                                                 .subscribeOn(Schedulers.io())
@@ -84,7 +80,7 @@ public class SignUpFragment extends Fragment {
 
                                                     @Override
                                                     public void onComplete() {
-                                                        Utilites.showShort(getContext(), getString(R.string.registration_success));
+                                                        Utils.showShort(getContext(), getString(R.string.registration_success));
                                                         Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment2);
                                                     }
 

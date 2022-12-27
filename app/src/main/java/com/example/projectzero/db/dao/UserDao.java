@@ -21,5 +21,4 @@ public interface UserDao {
     @Query("SELECT * FROM user WHERE email = :email AND password = :password")
     Maybe<User> getUserByEmailAndPassword(String email, String password);
 }
-
 // definir as operações de CRUD para tabela de user

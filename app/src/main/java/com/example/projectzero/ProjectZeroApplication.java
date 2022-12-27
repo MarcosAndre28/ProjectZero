@@ -4,12 +4,15 @@ import android.app.Application;
 import android.os.Handler;
 import android.os.HandlerThread;
 
-public class ProjectZeroApplication extends Application {
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
 
+import com.example.projectzero.db.AppDatabase;
+
+public class ProjectZeroApplication extends Application {
 
     @Override
     public void onCreate() {
         super.onCreate();
-
     }
 }
